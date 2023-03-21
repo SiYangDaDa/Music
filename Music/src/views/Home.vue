@@ -15,13 +15,13 @@
 
 <script setup>
     import { ref,reactive } from 'vue'
-    import {useRouter,useRoute} from "vue-router"
+    import {useRouter} from "vue-router"
 
     const router=useRouter()
     router.push({path:"home/music"})
     let idx=ref(0)
     // 导航跳转
-    function selectNav(index){
+    const selectNav=(index)=>{
         if(idx.value===index) return
         idx.value=index
         if(index==0){
@@ -31,7 +31,7 @@
         }
     }
 
-    function skipToMine(){
+    const skipToMine=()=>{
         router.push({path:"/my"})
     }
 
@@ -44,7 +44,7 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        height: 10vw;
+        height: 12vw;
         font-size: 4vw;
         background-color: @baseColor;
         position: fixed;

@@ -8,3 +8,7 @@ export const RecommendSongListApi=()=>request.get("/recommend/resource")
 export const BoutiqueSongsListApi=()=>request.get("/top/playlist/highquality")
 // 获取热门歌单
 export const HotSongsListApi=()=>request.get("/top/playlist")
+// 获取歌单歌曲详情
+export const SongsListDetailApi=(params)=>request.get("/playlist/detail",{params})
+// 获取歌曲详情
+export const SongDetailApi=(params)=>request.get("/song/detail",{params})

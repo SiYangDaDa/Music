@@ -19,31 +19,29 @@
     <!-- 精品歌单 -->
     <p class="topic-title">精品歌单</p>
     <div id="topic-list-box">
-        <card :width="'45vw'" v-for="item in boutiqueSongsList" :key="item.id" :name="item.name" :url="item.coverImgUrl"></card>
+        <card :width="'45vw'" v-for="item in boutiqueSongsList" :key="item.id" :name="item.name" :url="item.coverImgUrl" @click="skipToSongsList(item.id,item.name,item.coverImgUrl,'精品推荐')"></card>
     </div>
     <!-- 热门歌单 -->
     <p class="topic-title">热门歌单</p>
     <div id="topic-list-box">
-        <card :width="'45vw'" v-for="item in hotSongList" :key="item.id" :name="item.name" :url="item.coverImgUrl"></card>
+        <card :width="'45vw'" v-for="item in hotSongList" :key="item.id" :name="item.name" :url="item.coverImgUrl" @click="skipToSongsList(item.id,item.name,item.coverImgUrl,'热门推荐')"></card>
     </div>
-    <p class="topic-title">没有更多啦！</p>
-    <!-- 播放器 -->
-    <div id="play-bar">
-        <audio id="player" src="" loop="false" controls poster="" name="未知音频" author="俩白" 
-            binderror="" bindplay="" bindpause="" bindtimeupdate="" bindended="">
-        </audio>
-    </div>
+    <p class="topic-title">没有更多啦！</p> 
+    <!-- <BottomAudio/> -->
 </template>
 
 <script>
     import Card from "../compments/Card.vue"
+    // import BottomAudio from "../compments/BottomAudio.vue"
     import {reactive,toRefs} from 'vue'
+    import {useRouter} from "vue-router"
     import {BoutiqueSongsListApi,HotSongsListApi} from "../http/api" 
     
     export default{
         name:"getBoutiqueSongsList",
         components:{
             Card,
+            // BottomAudio
         },
         setup(){
             // 该组件的所有响应式数据
@@ -63,13 +61,18 @@
                 dataInfo.hotSongList = res.data.playlists
                 console.log('data',res.data)
             }
+            // 跳转到歌单详情页
+            const router=useRouter()
+            const skipToSongsList=(id,name,imgUrl,topic)=>{
+                router.push({path:"/musicList",query:{id,name,imgUrl,topic}})
+            }
             // 执行方法，获取数据
             getBoutiqueSongsList()
             getHotSongsList()
 
             return{
                 ...toRefs(dataInfo),
-                test
+                skipToSongsList
             }
         }
     }
@@ -77,21 +80,6 @@
 
 
 <style lang="less" scoped>
-    #play-bar{
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 10vw;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #fff;
-        
-        #player{
-            height: 8vw;
-        }
-    }
     .topic-title{
         text-align: center;
         margin: 1vw 0;
