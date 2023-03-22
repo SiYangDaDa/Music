@@ -1,18 +1,62 @@
-import { createApp } from "vue";
 import { createStore } from "vuex";
 
 
-const store=createStore({
-    actions(){
-
-    },
-    mutations(){
-
-    },
+ export const store=createStore({
     state(){
-
+        return{
+            songsList:[],
+            isPlay:false,
+            imgUrl:null,
+            singerId:null,
+            singer:null,
+            songName:null,
+            songId:null,
+            songUrl:null,
+            index:null,
+            type:null,
+        }
     },
+    mutations:{
+
+        // 获取歌曲播放列表，以及列表类型
+        getSongsList(state,songsListInfo){
+            state.songsList=songsListInfo.songsList
+            state.type=songsListInfo.type
+            console.log(songsListInfo)
+        },
+        
+        // 解析歌曲信息
+        analyzeSongInfo(state,musicInfo){
+            if(state.type==="recommend"){// 当歌曲列表类型位推荐音乐的类型的时候
+                if(musicInfo.songId==state.songId){
+                    if(state.isPlay){
+                        state.isPlay=false
+                    }else{
+                        state.isPlay=true
+                    } 
+                }else{
+                    state.isPlay=false
+                    state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+musicInfo.songId+".mp3 "
+                    state.index=musicInfo.index
+                    let songNow=state.songsList[musicInfo.index]
+                    state.imgUrl=songNow.songs[0].al.picUrl
+                    state.singerId=songNow.songs[0].ar[0].id
+                    state.singer=songNow.songs[0].ar[0].name
+                    state.songId=songNow.songs[0].id
+                    state.songName=songNow.songs[0].name
+                    
+                    state.isPlay=true
+                }
+                console.log(state.isPlay)
+            }
+        },
+
+        // 控制音乐的播放状态
+        controlPlay(state,isPlay){
+            state.isPlay=isPlay
+        },
+    },
+    
 })
 
 
-createApp(App).use(store)
