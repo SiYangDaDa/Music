@@ -14,6 +14,7 @@ import { createStore } from "vuex";
             songUrl:null,
             index:null,
             type:null,
+            ListType:null,
         }
     },
     mutations:{
@@ -22,12 +23,16 @@ import { createStore } from "vuex";
         getSongsList(state,songsListInfo){
             state.songsList=songsListInfo.songsList
             state.type=songsListInfo.type
-            console.log(songsListInfo)
+            state.ListType=songsListInfo.type
+            // console.log(songsListInfo)
         },
         
         // 解析歌曲信息
         analyzeSongInfo(state,musicInfo){
-            if(state.type==="recommend"){// 当歌曲列表类型位推荐音乐的类型的时候
+            // if(state.type==musicInfo.type){
+            //     if()
+            // }
+            if(state.ListType==="recommend"){// 当歌曲列表类型位推荐音乐的类型的时候
                 if(musicInfo.songId==state.songId){
                     if(state.isPlay){
                         state.isPlay=false
@@ -47,7 +52,6 @@ import { createStore } from "vuex";
                     
                     state.isPlay=true
                 }
-                console.log(state.isPlay)
             }
         },
 
@@ -55,6 +59,40 @@ import { createStore } from "vuex";
         controlPlay(state,isPlay){
             state.isPlay=isPlay
         },
+
+        // 解析下一首音乐
+        analyzeNext(state){
+            if(state.type==="recommend"){
+               let s= state.songsList.find(s=>s.songs[0].id==state.songId)
+               if(s){
+                    if(state.index==(state.songsList.length-1)){
+                        let songNow=state.songsList[0]
+                        state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+songNow.songs[0].id+".mp3 "
+                        state.index=0
+                        state.imgUrl=songNow.songs[0].al.picUrl
+                        state.singerId=songNow.songs[0].ar[0].id
+                        state.singer=songNow.songs[0].ar[0].name
+                        state.songId=songNow.songs[0].id
+                        state.songName=songNow.songs[0].name
+
+                        state.isPlay=true
+                    }else{
+                        let songNow=state.songsList[state.index+1]
+                        state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+songNow.songs[0].id+".mp3 "
+                        state.index=0
+                        state.imgUrl=songNow.songs[0].al.picUrl
+                        state.singerId=songNow.songs[0].ar[0].id
+                        state.singer=songNow.songs[0].ar[0].name
+                        state.songId=songNow.songs[0].id
+                        state.songName=songNow.songs[0].name
+
+                        state.isPlay=true
+                    }
+               }else{
+                    console.log("不属于该类型个歌单")
+               }
+            }
+        }
     },
     
 })

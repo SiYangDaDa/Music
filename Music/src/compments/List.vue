@@ -1,5 +1,6 @@
 <script setup>
     import { defineProps } from 'vue'
+    import { useStore } from 'vuex'
     // const props=defineProps(['songName','imgUrl','songId',"singer"])
     const props=defineProps({
         songName:{
@@ -18,10 +19,12 @@
             type:Number
         }
     })
+
+    const store=useStore()
 </script>
 
 <template>
-  <div class="list">
+  <div :class="{list:true,selected:store.state.songId==songId?true:false}">
     <div class="list-left">
         <img class="song-img" :src="props.imgUrl" alt="">
         <div class="song-detail">
@@ -79,5 +82,9 @@
                 margin-right: 2vw !important;
             }
         }
+    }
+    .selected{
+        background-color: @selectBgcColor;
+        color: @selectColor;
     }
 </style>

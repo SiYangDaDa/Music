@@ -7,11 +7,15 @@
         left-arrow
         @click-left="onClickLeft"
     />
-    <van-card
+    <!-- <van-card
         :desc="route.query.name"
         title=" "
         :thumb="route.query.imgUrl"
-    />
+    /> -->
+    <div class="card">
+        <img class="card-img" :src="route.query.imgUrl" alt="">
+        <div class="card-text">{{ route.query.name }}</div>
+    </div>
     <List v-for="(s,index) in songsList" :key="index" :songName="s.songs[0].name" :songId="s.songs[0].id" :singer="s.songs[0].ar[0].name" :imgUrl="s.songs[0].al.picUrl" @click="passMusicInfo(s.songs[0].id,index)"/>
     
   </div>
@@ -62,7 +66,7 @@
                 })
                 let info={
                     songsList:dataInfo.songsList,
-                    type:"recommend"
+                    type:route.query.type
                 }
                 // 将歌曲列表信息传递给vuex
                 store.commit("getSongsList",info)
@@ -70,7 +74,7 @@
 
             // 将当前歌曲的id及索引传递给vuex以解析
             const passMusicInfo=(songId,index)=>{
-                const type="recommend"
+                const type=route.query.type
                 let musicInfo={
                     songId,
                     index,
@@ -97,6 +101,18 @@
     #music-list{
         box-sizing: border-box;
         padding-top: 12vw;
+        .card{
+            display: flex;
+            padding: 2vw;
+            .card-img{
+                width: 30vw;
+                height: 30vw;
+                border-radius: 5%;
+            }
+            .card-text{
+                margin-left: 2vw;
+            }
+        }
         .navBar{
             position: fixed;
             top: 0;

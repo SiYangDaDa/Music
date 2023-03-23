@@ -1,15 +1,16 @@
 <template>
   <div id="play-bar">
-        <audio id="player" ref="audio" :src="store.state.songUrl" loop="false" controls poster="" name="未知音频" author="俩白" 
+        <!-- <audio id="player" ref="audio" :src="store.state.songUrl" loop="false" controls poster="" name="未知音频" author="俩白" 
             binderror="" bindplay="" bindpause="" bindtimeupdate="" bindended="">
-        </audio>
+        </audio> -->
+        <audio id="player" ref="audio" :src="store.state.songUrl" autoplay="autoplay" controls="controls"></audio>
 
         <!-- <van-progress class="progress" :percentage="50" stroke-width="3" pivot-color="#409EFF" track-color="gray"/> -->
         <div class="play-bar-left">
             <img class="play-img" :src="store.state.imgUrl" alt="">
             <div class="song-detail">
-                <div id="songNameAndSinger" ref="songDetail">
-                    {{store.state.songName}}-{{store.state.singer}}
+                <div id="songNameAndSinger">
+                    <span>{{store.state.songName}}-{{store.state.singer}}</span>
                 </div>
             </div>
         </div>
@@ -29,10 +30,6 @@
         
         setup(){
             const store=useStore()
-            // let dom
-            // const getElement=()=>{
-            //     dom=document.getElementById('songNameAndSinger')
-            // }
             const addAnimation=()=>{
                 let dom=document.getElementById('songNameAndSinger')
                 // 获取dom元素的宽度
@@ -56,11 +53,8 @@
             }
             // 控制动画的暂停与播放
             const controlAnimation=()=>{
-                if(isPlay==true){
-
-                }else{
-                    
-                }
+                let dom=document.getElementById('songNameAndSinger')
+                dom.style.animation=""
             }
             let isPlay= computed(() => store.state.isPlay)
 
@@ -82,17 +76,19 @@
                     store.commit('controlPlay',true)
                 }
                 audio.play()
+                addAnimation()
                 // controlAnimation()
             }
             // 暂停音乐
             const pause=()=>{
                 store.commit('controlPlay',false)
                 audio.pause()
+                controlAnimation()
                 // controlAnimation()
             }
             onMounted(()=>{
                 
-                addAnimation()
+                // addAnimation()
                 getDom()
                 // 监听audio资源是否加载完毕
                 audio.addEventListener('canplay',()=>{
@@ -100,6 +96,13 @@
                         play()
                     }
                 })
+                // 监听音频的播放结束
+                audio.addEventListener('ended',()=>{
+                    pause()
+                    console.log("播放结束")
+                    // 音乐播放完自动切换到下一首
+                    store.commit('analyzeNext')
+                }, false);
             })
             return{
                 // props,
@@ -145,7 +148,7 @@
                 border-radius: 5vw;
             }
             .song-detail{
-                width: 70vw;
+                max-width: 70vw;
                 overflow: hidden;
                 #songNameAndSinger{
                     // 设置不允许文本换行

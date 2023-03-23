@@ -7,14 +7,20 @@
             placeholder="请输入搜索关键词"
         />
     </div>
-    <!-- 导航栏 -->
+    <!-- 图标导航栏 -->
     <div id="song-navBar">
-        <van-grid>
-            <van-grid-item icon="photo-o" text="文字" />
-            <van-grid-item icon="photo-o" text="文字" />
-            <van-grid-item icon="photo-o" text="文字" />
-            <van-grid-item icon="photo-o" text="文字" />
-        </van-grid>
+        <div class="img-nav">
+            <img class="nav-icon" src="../../public/img/hotMusic.png" alt="">
+            <span class="nav-content">热门音乐</span>
+        </div>
+        <div class="img-nav">
+            <img class="nav-icon" src="../../public/img/singer.png" alt="">
+            <span class="nav-content">热门歌手</span>
+        </div>
+        <div class="img-nav">
+            <img class="nav-icon" src="../../public/img/myLike.png" alt="">
+            <span class="nav-content">我的喜欢</span>
+        </div>
     </div>
     <!-- 精品歌单 -->
     <p class="topic-title">精品歌单</p>
@@ -64,7 +70,8 @@
             // 跳转到歌单详情页
             const router=useRouter()
             const skipToSongsList=(id,name,imgUrl,topic)=>{
-                router.push({path:"/musicList",query:{id,name,imgUrl,topic}})
+                const type="recommend"
+                router.push({path:"/musicList",query:{id,name,imgUrl,topic,type}})
             }
             // 执行方法，获取数据
             getBoutiqueSongsList()
@@ -89,5 +96,26 @@
         width: 100vw;
         justify-content:space-evenly;
         flex-wrap:wrap;
+    }
+    #song-navBar{
+        display: flex;
+        justify-content: space-around;
+        margin-top: 2vw;
+        .img-nav{
+            width: 18vw;
+            height: 18vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: column;
+            background-color: #fff;
+            padding: 2vw;
+            // box-sizing: border-box;
+            border-radius: 15%;
+            .nav-icon{
+                width: 12vw;
+                height: 12vw;
+            }
+        }
     }
 </style>
