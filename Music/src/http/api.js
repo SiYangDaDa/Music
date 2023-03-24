@@ -12,3 +12,7 @@ export const HotSongsListApi=()=>request.get("/top/playlist")
 export const SongsListDetailApi=(params)=>request.get("/playlist/detail",{params})
 // 获取歌曲详情
 export const SongDetailApi=(params)=>request.get("/song/detail",{params})
+// 获取最新音乐
+export const LatestMusicApi=(params)=>request.get("/top/song",{params})
+// 获取歌词
+export const GetLyricApi=(params)=>request.get("/lyric",{params})

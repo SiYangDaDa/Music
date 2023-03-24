@@ -31,6 +31,16 @@ const routes=[
         component:()=>import("../views/MusicList.vue")
     },
     {
+        name:"hotSinger",
+        path:"/hotSinger",
+        component:()=>import("../views/HotSinger.vue")
+    },
+    {
+        name:"singerDetail",
+        path:"/singerDetail",
+        component:()=>import("../views/SingerDetail.vue")
+    },
+    {
         name:'my',
         path:"/my",
         component:()=>import("../views/My.vue"),

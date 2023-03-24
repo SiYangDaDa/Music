@@ -9,9 +9,9 @@
     </div>
     <!-- 图标导航栏 -->
     <div id="song-navBar">
-        <div class="img-nav">
-            <img class="nav-icon" src="../../public/img/hotMusic.png" alt="">
-            <span class="nav-content">热门音乐</span>
+        <div class="img-nav" @click="skipToSongsList(1234567,'','','最新音乐','latest')">
+            <img class="nav-icon" src="../../public/img/latest.png" alt="">
+            <span class="nav-content">最新音乐</span>
         </div>
         <div class="img-nav">
             <img class="nav-icon" src="../../public/img/singer.png" alt="">
@@ -25,12 +25,12 @@
     <!-- 精品歌单 -->
     <p class="topic-title">精品歌单</p>
     <div id="topic-list-box">
-        <card :width="'45vw'" v-for="item in boutiqueSongsList" :key="item.id" :name="item.name" :url="item.coverImgUrl" @click="skipToSongsList(item.id,item.name,item.coverImgUrl,'精品推荐')"></card>
+        <card :width="'45vw'" v-for="item in boutiqueSongsList" :key="item.id" :name="item.name" :url="item.coverImgUrl" @click="skipToSongsList(item.id,item.name,item.coverImgUrl,'精品推荐','recommend')"></card>
     </div>
     <!-- 热门歌单 -->
     <p class="topic-title">热门歌单</p>
     <div id="topic-list-box">
-        <card :width="'45vw'" v-for="item in hotSongList" :key="item.id" :name="item.name" :url="item.coverImgUrl" @click="skipToSongsList(item.id,item.name,item.coverImgUrl,'热门推荐')"></card>
+        <card :width="'45vw'" v-for="item in hotSongList" :key="item.id" :name="item.name" :url="item.coverImgUrl" @click="skipToSongsList(item.id,item.name,item.coverImgUrl,'热门推荐','recommend')"></card>
     </div>
     <p class="topic-title">没有更多啦！</p> 
     <!-- <BottomAudio/> -->
@@ -69,8 +69,7 @@
             }
             // 跳转到歌单详情页
             const router=useRouter()
-            const skipToSongsList=(id,name,imgUrl,topic)=>{
-                const type="recommend"
+            const skipToSongsList=(id,name,imgUrl,topic,type)=>{
                 router.push({path:"/musicList",query:{id,name,imgUrl,topic,type}})
             }
             // 执行方法，获取数据
