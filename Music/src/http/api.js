@@ -16,3 +16,5 @@ export const SongDetailApi=(params)=>request.get("/song/detail",{params})
 export const LatestMusicApi=(params)=>request.get("/top/song",{params})
 // 获取歌词
 export const GetLyricApi=(params)=>request.get("/lyric",{params})
+// 获取歌手榜
+export const SingerRankingListApi=(params)=>request.get("/toplist/artist",{params})

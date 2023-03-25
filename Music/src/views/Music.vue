@@ -13,7 +13,7 @@
             <img class="nav-icon" src="../../public/img/latest.png" alt="">
             <span class="nav-content">最新音乐</span>
         </div>
-        <div class="img-nav">
+        <div class="img-nav" @click="skipToHotSonger">
             <img class="nav-icon" src="../../public/img/singer.png" alt="">
             <span class="nav-content">热门歌手</span>
         </div>
@@ -72,13 +72,18 @@
             const skipToSongsList=(id,name,imgUrl,topic,type)=>{
                 router.push({path:"/musicList",query:{id,name,imgUrl,topic,type}})
             }
+            // 跳转到热门歌手页面
+            const skipToHotSonger=()=>{
+                router.push({path:"/hotSinger",query:{topic:"热门歌手"}})
+            }
             // 执行方法，获取数据
             getBoutiqueSongsList()
             getHotSongsList()
 
             return{
                 ...toRefs(dataInfo),
-                skipToSongsList
+                skipToSongsList,
+                skipToHotSonger
             }
         }
     }
