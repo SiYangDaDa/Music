@@ -64,12 +64,14 @@
                 margin-left: 2vw;
                 .singer-name{
                     color: gray;
+                    font-size: @normalText;
                 }
                 .song-name,.singer-name{
                     width: 50vw;
                     overflow: hidden;
                     text-overflow:ellipsis;
-                    white-space: nowrap
+                    white-space: nowrap;
+                    font-size: @smallText;
                 }
             }
         }

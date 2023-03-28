@@ -18,3 +18,13 @@ export const LatestMusicApi=(params)=>request.get("/top/song",{params})
 export const GetLyricApi=(params)=>request.get("/lyric",{params})
 // 获取歌手榜
 export const SingerRankingListApi=(params)=>request.get("/toplist/artist",{params})
+// 获取歌手简介
+export const SingerIntroducyionApi=(params)=>request.get("/artist/detail",{params})
+// 获取歌手全部歌曲
+export const SingerAllSongsApi=(params)=>request.get("/artist/songs",{params})
+// 获取歌手专辑
+export const SingerAlbumApi=(params)=>request.get("/artist/album",{params})
+// 获取专辑内容
+export const AlbumContentApi=(params)=>request.get("/album",{params})
+// 获取歌手信息及50首热门歌曲
+export const PerInfoAndHotSongsApi=(params)=>request.get("/artists",{params})

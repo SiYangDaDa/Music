@@ -45,15 +45,14 @@
         justify-content: space-around;
         align-items: center;
         height: 12vw;
-        font-size: 4vw;
+        font-size: @titleText;
         background-color: @baseColor;
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         .selected{
-            color: red;
-            font-size: 4.2vw;
+            color: @titleSelectedColor;
             font-weight: bold;
         }
     }

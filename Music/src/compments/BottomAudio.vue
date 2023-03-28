@@ -28,10 +28,10 @@
                     </div>
                     <div class="control-box">
                         <div class="control"><i class="iconfont icon-dianshunxu"></i></div>
-                        <div class="control"><i class="iconfont icon-shangyishou1"></i></div>
+                        <div class="control"><i class="iconfont icon-shangyishou1" @click="lastSong"></i></div>
                         <div class="control" v-if="!store.state.isPlay" @click="play"><i class="iconfont icon-bofang-"></i></div>
                         <div class="control" v-if="store.state.isPlay" @click="pause"><i class="iconfont icon-zanting-"></i></div>
-                        <div class="control"><i class="iconfont icon-xiayishou2"></i></div>
+                        <div class="control"><i class="iconfont icon-xiayishou2" @click="nextSong"></i></div>
                         <div class="control"><i class="iconfont icon-xihuan-xianxing"></i></div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                 isShow:false,
                 progress:0,
                 timeArr:[],
-                lrcArr:[]
+                lrcArr:[],
             })
             
             const store=useStore()
@@ -93,6 +93,7 @@
                 dataInfo.timeArr=[]
                 dataInfo.lrcArr=[]
                 const res=await GetLyricApi({id:store.state.songId})
+                console.log(res.data)
                 const lrcStr=res.data.lrc.lyric
                 const reg=/\[(\d{2}:\d{2})\.\d{2,3}\](.+)/g
                 let tmp=reg.exec(lrcStr)
@@ -172,9 +173,16 @@
 
             // 监听进度条滑块的变化
             const onChange=()=>{
-                console.log(dataInfo.progress)
+                audio.currentTime=audio.duration*(dataInfo.progress/100)
             }
-
+            // 上一首
+            const lastSong=()=>{
+                store.commit("analyzeLast")
+            }
+            // 下一首
+            const nextSong=()=>{
+                store.commit("analyzeNext")
+            }
             onMounted(()=>{
                 getDom()
                 // 监听audio资源是否加载完毕
@@ -209,7 +217,9 @@
                 play,
                 pause,
                 controlPopUpLayerShow,
-                onChange
+                onChange,
+                lastSong,
+                nextSong
             }
         }
     }
@@ -296,7 +306,7 @@
                 overflow-y: scroll;
                 .lyric-item{
                     text-align: center;
-                    font-size: 3vw;
+                    font-size: @smallText;
                 }
             }
             .post-progress{
@@ -313,7 +323,7 @@
                 display: flex;
                 justify-content: space-between;
                 .iconfont{
-                    font-size: 8vw !important;
+                    font-size: @iconFontsize !important;
                 }
             }
         }

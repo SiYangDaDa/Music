@@ -27,13 +27,14 @@
         left: 0;
         right: 0;
         height: 100vh;
-        background-color: yellowgreen;
+        background-color: #fff;
+        backdrop-filter: blur(5px);
         animation: ease-out 0.3s moveUp 1;
         .back{
             position: fixed !important;
             top: 2vw !important;
             left:2vw !important;
-            color: #fff !important;
+            color: #409EFF;
             font-size: 5vw;
             z-index: 10000;
         }

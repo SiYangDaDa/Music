@@ -6,7 +6,7 @@
 <template>
     <div class="card" :style="'width:'+props.width+';height:'+props.width">
         <img class="cover" :src="props.url" alt="" srcset="">
-        <van-text-ellipsis class="text" :content="props.name" />
+        <div class="text">{{ props.name }}</div>
     </div>
 </template>
 
@@ -28,7 +28,11 @@
                 right: 0;
                 z-index: 2;
                 background-color: rgba(255,255,255,0.5);
-                --van-text-ellipsis-line-height:1.2;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-align: center;
+                font-size: @normalText;
             }
         }
 </style>

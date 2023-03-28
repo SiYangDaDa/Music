@@ -12,15 +12,24 @@
         <div :class="{'type-item':true,'selected':navIndex==3 ? true : false}" @click="chooseNav(3)">韩国</div>
         <div :class="{'type-item':true,'selected':navIndex==4 ? true : false}" @click="chooseNav(4)">日本</div>
     </div>
-    <div id="singer">
-        <Card :width="'30vw'" v-for="p in singerList" :name="p.name" :id="p.id" :url="p.picUrl"></Card>
+    <div class="singer" v-show="navIndex==1">
+        <Card :width="'30vw'" v-for="p in China" :name="p.name" :id="p.id" :url="p.picUrl" @click="skipToSingerDetail(p.id,p.name,p.picUrl)"></Card>
+    </div>
+    <div class="singer" v-show="navIndex==2">
+        <Card :width="'30vw'" v-for="p in Western" :name="p.name" :id="p.id" :url="p.picUrl" @click="skipToSingerDetail(p.id,p.name,p.picUrl)"></Card>
+    </div>
+    <div class="singer" v-show="navIndex==3">
+        <Card :width="'30vw'" v-for="p in Korea" :name="p.name" :id="p.id" :url="p.picUrl" @click="skipToSingerDetail(p.id,p.name,p.picUrl)"></Card>
+    </div>
+    <div class="singer" v-show="navIndex==4">
+        <Card :width="'30vw'" v-for="p in Japan" :name="p.name" :id="p.id" :url="p.picUrl" @click="skipToSingerDetail(p.id,p.name,p.picUrl)"></Card>
     </div>
 </template>
 
 <script>
     import Card from "../compments/Card.vue"
     import {SingerRankingListApi} from "../http/api"
-    import { useRoute } from 'vue-router'
+    import { useRoute,useRouter } from 'vue-router'
     import { reactive,toRefs } from "vue"
     export default{
         components:{
@@ -33,57 +42,57 @@
                 Western:[],
                 Korea:[],
                 Japan:[],
-                singerList:[],
                 navIndex:1,
             })
 
+            // 根据导航索引判断要获取的歌手类型
             const chooseNav=(index)=>{
-                console.log(index)
                 if(index==1){
                     dataInfo.navIndex=index
-                    if(dataInfo.China.length>0) dataInfo.singerList=dataInfo.China
+                    if(dataInfo.China.length>0) return
                     getSingerList()
                 }else if(index==2){
                     dataInfo.navIndex=index
-                    if(dataInfo.Western.length>0) dataInfo.singerList=dataInfo.Western
+                    if(dataInfo.Western.length>0) return
                     getSingerList()
                 }else if(index==3){
                     dataInfo.navIndex=index
-                    if(dataInfo.Korea.length>0) dataInfo.singerList=dataInfo.Korea
+                    if(dataInfo.Korea.length>0) return
                     getSingerList()
                 }else if(index==4){
                     dataInfo.navIndex=index
-                    if(dataInfo.Japan.length>0) dataInfo.singerList=dataInfo.Japan
+                    if(dataInfo.Japan.length>0) return
                     getSingerList()
                 }
             }
-
+            // 获取不同国家的歌手列表
             const getSingerList=async()=>{
                 const res=await SingerRankingListApi({type:dataInfo.navIndex})
                 if(dataInfo.navIndex==1){
                     dataInfo.China=res.data.list.artists
-                    dataInfo.singerList=dataInfo.China
                 }else if(dataInfo.navIndex==2){
                     dataInfo.Western=res.data.list.artists
-                    dataInfo.singerList=dataInfo.Western
                 }else if(dataInfo.navIndex==3){
                     dataInfo.Korea=res.data.list.artists
-                    dataInfo.singerList=dataInfo.Korea
                 }else if(dataInfo.navIndex==4){
                     dataInfo.Japan=res.data.list.artists
-                    dataInfo.singerList=dataInfo.Japan
                 }
             }
             const route=useRoute()
             // 返回上一级
             const onClickLeft = () => history.back()
-
+            const router=useRouter()
+            // 跳转到歌手详情页
+            const skipToSingerDetail=(id,name,url)=>{
+                router.push({path:"/singerDetail",query:{id,name,url}})
+            }
             chooseNav(1)
             return{
                 route,
                 ...toRefs(dataInfo),
                 chooseNav,
-                onClickLeft
+                onClickLeft,
+                skipToSingerDetail
             }
         }
     }
@@ -111,11 +120,11 @@
         }
         .selected{
             font-weight: bold;
-            border-bottom: 0.267vw solid #409EFF;
-            color: #409EFF;
+            border-bottom: 0.267vw solid @titleSelectedColor;
+            color: @titleSelectedColor;
         }
     }
-    #singer{
+    .singer{
         margin-top: 28vw;
         display: flex;
         justify-content: space-around;

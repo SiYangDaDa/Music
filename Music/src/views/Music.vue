@@ -2,6 +2,7 @@
     <!-- 搜索框 -->
     <div>
         <van-search
+            class="search"
             v-model="searchInfo"
             shape="round"
             placeholder="请输入搜索关键词"
@@ -93,7 +94,10 @@
 <style lang="less" scoped>
     .topic-title{
         text-align: center;
-        margin: 1vw 0;
+        margin: 2vw;
+        padding: 2vw;
+        background-color: #fff;
+        border-radius: 2vw;
     }
     #topic-list-box{
         display: flex;
