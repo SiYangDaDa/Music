@@ -41,10 +41,20 @@ const routes=[
         component:()=>import("../views/SingerDetail.vue")
     },
     {
+        name:"searchDetail",
+        path:"/searchDetail",
+        component:()=>import("../views/SearchDetail.vue")
+    },
+    {
         name:'my',
         path:"/my",
         component:()=>import("../views/My.vue"),
         meta:{isAuth:false}
+    },
+    {
+        name:'mvPlay',
+        path:'/mvPlay',
+        component:()=>import('../views/MvPlay.vue')
     }
 ]
 const router=createRouter({

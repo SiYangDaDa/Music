@@ -17,9 +17,8 @@
         },
         songId:{
             type:Number
-        }
+        },
     })
-
     const store=useStore()
 </script>
 

@@ -29,6 +29,7 @@ import { createStore } from "vuex";
         
         // 解析歌曲信息
         analyzeSongInfo(state,musicInfo){
+            console.log(222)
             if(musicInfo.songId==state.songId){
                 if(state.isPlay===true){
                     state.isPlay=false
@@ -72,8 +73,18 @@ import { createStore } from "vuex";
                     state.songName=songNow.name
                     state.type=musicInfo.type    
                     state.isPlay=true
-                    console.log(state.songId)
-                    console.log(state.songUrl)
+                }else if(state.ListType=="search"){
+                    state.isPlay=false
+                    let songNow=state.songsList[musicInfo.index]
+                    state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+musicInfo.songId+".mp3 "
+                    state.index=musicInfo.index
+                    state.imgUrl="../../public/img/lazy.png"
+                    state.singerId=songNow.artists[0].id
+                    state.singer=songNow.artists[0].name
+                    state.songId=songNow.id
+                    state.songName=songNow.name
+                    state.type=musicInfo.type    
+                    state.isPlay=true
                 }
             }
         },
@@ -139,7 +150,7 @@ import { createStore } from "vuex";
                 }else if(state.type=="singerHotSongs"){
                     if(state.index==0){
                         let songNow=state.songsList[state.songsList.length-1]
-                        state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+songNow.al.id+".mp3 "
+                        state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+songNow.id+".mp3 "
                         state.index=state.songsList.length-1
                         state.imgUrl=songNow.al.picUrl
                         state.singerId=songNow.ar[0].id
@@ -150,11 +161,35 @@ import { createStore } from "vuex";
                         state.isPlay=true
                     }else{
                         let songNow=state.songsList[state.index-1]
-                        state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+songNow.al.id+".mp3 "
+                        state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+songNow.id+".mp3 "
                         state.index=state.index-1
                         state.imgUrl=songNow.al.picUrl
                         state.singerId=songNow.ar[0].id
                         state.singer=songNow.ar[0].name
+                        state.songId=songNow.id
+                        state.songName=songNow.name
+                        state.type=state.ListType    
+                        state.isPlay=true
+                    }
+                }else if(state.type=="search"){
+                    if(state.index==0){
+                        let songNow=state.songsList[state.songsList.length-1]
+                        state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+songNow.id+".mp3 "
+                        state.index=state.songsList.length-1
+                        state.imgUrl="../../public/img/lazy.png"
+                        state.singerId=songNow.artists[0].id
+                        state.singer=songNow.artists[0].name
+                        state.songId=songNow.id
+                        state.songName=songNow.name
+                        state.type=state.ListType    
+                        state.isPlay=true
+                    }else{
+                        let songNow=state.songsList[state.index-1]
+                        state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+songNow.id+".mp3 "
+                        state.index=state.index-1
+                        state.imgUrl="../../public/img/lazy.png"
+                        state.singerId=songNow.artists[0].id
+                        state.singer=songNow.artists[0].name
                         state.songId=songNow.id
                         state.songName=songNow.name
                         state.type=state.ListType    
@@ -220,7 +255,7 @@ import { createStore } from "vuex";
                 }else if(state.type=="singerHotSongs"){
                     if(state.index==(state.songsList.length-1)){
                         let songNow=state.songsList[0]
-                        state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+songNow.al.id+".mp3 "
+                        state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+songNow.id+".mp3 "
                         state.index=0
                         state.imgUrl=songNow.al.picUrl
                         state.singerId=songNow.ar[0].id
@@ -231,11 +266,35 @@ import { createStore } from "vuex";
                         state.isPlay=true
                     }else{
                         let songNow=state.songsList[state.index+1]
-                        state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+songNow.al.id+".mp3 "
+                        state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+songNow.id+".mp3 "
                         state.index=state.index+1
                         state.imgUrl=songNow.al.picUrl
                         state.singerId=songNow.ar[0].id
                         state.singer=songNow.ar[0].name
+                        state.songId=songNow.id
+                        state.songName=songNow.name
+                        state.type=state.ListType    
+                        state.isPlay=true
+                    }
+                }else if(state.type=="search"){
+                    if(state.index==(state.songsList.length-1)){
+                        let songNow=state.songsList[0]
+                        state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+songNow.id+".mp3 "
+                        state.index=state.songsList.length-1
+                        state.imgUrl="../../public/img/lazy.png"
+                        state.singerId=songNow.artists[0].id
+                        state.singer=songNow.artists[0].name
+                        state.songId=songNow.id
+                        state.songName=songNow.name
+                        state.type=state.ListType    
+                        state.isPlay=true
+                    }else{
+                        let songNow=state.songsList[state.index+1]
+                        state.songUrl="https://music.163.com/song/media/outer/url?"+"id="+songNow.id+".mp3 "
+                        state.index=state.index+1
+                        state.imgUrl="../../public/img/lazy.png"
+                        state.singerId=songNow.artists[0].id
+                        state.singer=songNow.artists[0].name
                         state.songId=songNow.id
                         state.songName=songNow.name
                         state.type=state.ListType    

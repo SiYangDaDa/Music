@@ -1,11 +1,5 @@
 <template>
-  <van-nav-bar
-        class="navBar"
-        :title="route.query.topic"
-        left-text="返回"
-        left-arrow
-        @click-left="onClickLeft"
-    />
+    <NavBar :title="route.query.topic"></NavBar>
     <div id="type">
         <div :class="{'type-item':true,'selected':navIndex==1 ? true : false}" @click="chooseNav(1)">华语</div>
         <div :class="{'type-item':true,'selected':navIndex==2 ? true : false}" @click="chooseNav(2)">欧美</div>
@@ -27,6 +21,7 @@
 </template>
 
 <script>
+    import NavBar from "../compments/NavBar.vue"
     import Card from "../compments/Card.vue"
     import {SingerRankingListApi} from "../http/api"
     import { useRoute,useRouter } from 'vue-router'
@@ -34,6 +29,7 @@
     export default{
         components:{
             Card,
+            NavBar
         },
         setup(){
 

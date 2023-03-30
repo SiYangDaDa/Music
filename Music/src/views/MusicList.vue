@@ -1,17 +1,6 @@
 <template>
-  <div id="music-list">
-    <van-nav-bar
-        class="navBar"
-        :title="route.query.topic"
-        left-text="返回"
-        left-arrow
-        @click-left="onClickLeft"
-    />
-    <!-- <van-card
-        :desc="route.query.name"
-        title=" "
-        :thumb="route.query.imgUrl"
-    /> -->
+    <NavBar :title="route.query.topic"></NavBar>
+    <div id="music-list">
     <div class="card" v-if="route.query.name">
         <img class="card-img" :src="route.query.imgUrl" alt="">
         <div class="card-text">{{ route.query.name }}</div>
@@ -27,6 +16,7 @@
 </template>
 
 <script>
+    import NavBar from "../compments/NavBar.vue"
     // import BottomAudio from "../compments/BottomAudio.vue"
     import List from "../compments/List.vue"
     import { reactive,toRefs,watch } from "vue"
@@ -38,6 +28,7 @@
         name:"MusicList",
         components:{
             List,
+            NavBar
             // BottomAudio
         },
         setup(){

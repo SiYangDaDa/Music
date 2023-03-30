@@ -1,13 +1,6 @@
 <template>
     <!-- 搜索框 -->
-    <div>
-        <van-search
-            class="search"
-            v-model="searchInfo"
-            shape="round"
-            placeholder="请输入搜索关键词"
-        />
-    </div>
+    <Search @click="skipToSearchDetail"></Search>
     <!-- 图标导航栏 -->
     <div id="song-navBar">
         <div class="img-nav" @click="skipToSongsList(1234567,'','','最新音乐','latest')">
@@ -38,6 +31,7 @@
 </template>
 
 <script>
+    import Search from "../compments/Search.vue"
     import Card from "../compments/Card.vue"
     // import BottomAudio from "../compments/BottomAudio.vue"
     import {reactive,toRefs} from 'vue'
@@ -48,7 +42,7 @@
         name:"getBoutiqueSongsList",
         components:{
             Card,
-            // BottomAudio
+            Search,
         },
         setup(){
             // 该组件的所有响应式数据
@@ -73,6 +67,10 @@
             const skipToSongsList=(id,name,imgUrl,topic,type)=>{
                 router.push({path:"/musicList",query:{id,name,imgUrl,topic,type}})
             }
+            // 跳转到搜索详情页
+            const skipToSearchDetail=()=>{
+                router.push({path:"/searchDetail"})
+            }
             // 跳转到热门歌手页面
             const skipToHotSonger=()=>{
                 router.push({path:"/hotSinger",query:{topic:"热门歌手"}})
@@ -84,14 +82,15 @@
             return{
                 ...toRefs(dataInfo),
                 skipToSongsList,
-                skipToHotSonger
+                skipToHotSonger,
+                skipToSearchDetail
             }
         }
     }
 </script>
 
 
-<style lang="less" scoped>
+<style lang="less">
     .topic-title{
         text-align: center;
         margin: 2vw;
@@ -125,5 +124,8 @@
                 height: 12vw;
             }
         }
+    }
+    .van-search-input-height{
+        height: 12vw;
     }
 </style>

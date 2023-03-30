@@ -28,3 +28,11 @@ export const SingerAlbumApi=(params)=>request.get("/artist/album",{params})
 export const AlbumContentApi=(params)=>request.get("/album",{params})
 // 获取歌手信息及50首热门歌曲
 export const PerInfoAndHotSongsApi=(params)=>request.get("/artists",{params})
+// 关键词搜索歌曲及歌手
+export const SearchSingerAndSongs=(params)=>request.get("/search/suggest",{params})
+// 获取Mv
+export const GetMvApi=(params)=>request.get("/mv/all",{params})
+// 获取mv的Url
+export const GetMvUrlApi=(params)=>request.get("/mv/url",{params})
+// 获取相似的mv(参数mvid)
+export const SimilarMvApi=(params)=>request.get("/simi/mv",{params})
