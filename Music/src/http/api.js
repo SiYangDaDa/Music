@@ -36,3 +36,7 @@ export const GetMvApi=(params)=>request.get("/mv/all",{params})
 export const GetMvUrlApi=(params)=>request.get("/mv/url",{params})
 // 获取相似的mv(参数mvid)
 export const SimilarMvApi=(params)=>request.get("/simi/mv",{params})
+// 手机号获取验证码
+export const GetIdCodeApi=(params)=>request.get("/captcha/sent",{params})
+// 验证验证码
+export const VerifyIdCode=(params)=>request.get("/captcha/verify",{params})

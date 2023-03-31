@@ -15,9 +15,9 @@ request.interceptors.request.use((config)=>{
     // 设置token start
     const token = sessionStorage.getItem("token");
     if (token) {
-        config.headers.Authorization = "Bearer "+ token;
+        config.headers.Authorization = "Bearer "+ token
     }
-    return config;s
+    return config
 },err=>{
     console.log(2)
     return Promise.reject(err)

@@ -58,6 +58,7 @@
                 console.log(res.data)
             }
             watch(()=>route.query.id,()=>{
+                console.log(route.path)
                 getMvUrl()
                 getSimilarMvList()
             },{deep:true,immediate:true})
@@ -81,6 +82,8 @@
         }
     }
     #mv-detail{
+        background-color: #fff;
+        margin: 0 2vw;
         padding: 2vw;
         .mv-text{
             font-size: @smallFont;

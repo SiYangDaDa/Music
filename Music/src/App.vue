@@ -14,7 +14,7 @@
       <component :is="Component" />
     </keep-alive>
   </router-view>
-  <BottomAudio v-if="store.state.songUrl"></BottomAudio>
+  <BottomAudio v-show="store.state.songUrl&&(route.path!='mvPlay'||route.path!='mv'||route.path!='my'||route.path!='loginAndRegist')"></BottomAudio>
 </template>
 
 <style lang="less">

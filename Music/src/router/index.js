@@ -55,6 +55,11 @@ const routes=[
         name:'mvPlay',
         path:'/mvPlay',
         component:()=>import('../views/MvPlay.vue')
+    },
+    {
+        name:"loginAndRegist",
+        path:"/loginAndRegist",
+        component:()=>import('../views/LoginAndRegist.vue')
     }
 ]
 const router=createRouter({

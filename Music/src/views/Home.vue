@@ -16,7 +16,9 @@
 <script setup>
     import { ref,reactive } from 'vue'
     import {useRouter} from "vue-router"
+    import { useStore } from 'vuex'
 
+    const store=useStore()
     const router=useRouter()
     router.push({path:"home/music"})
     let idx=ref(0)
@@ -27,6 +29,7 @@
         if(index==0){
             router.push({path:"music"})
         }else if(index==1){
+            store.commit("controlPlay",false)
             router.push({path:"mv"})
         }
     }
