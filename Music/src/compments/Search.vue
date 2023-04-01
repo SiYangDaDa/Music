@@ -8,6 +8,7 @@
 </template>
 
 <script>
+    import {debounce} from "../hooks/debounce"
     import {watch,reactive,toRefs} from "vue"
     export default{
         props:["isClear"],
@@ -17,12 +18,8 @@
                 info:"",
                 timer:null
             })
-            // 防抖函数
-            const debounce=()=>{
-                clearTimeout(dataInfo.timer)
-                dataInfo.timer=setTimeout(()=>{
-                    context.emit("onChange",dataInfo.info)
-                },500)
+            const passInfo=()=>{
+                context.emit("onChange",dataInfo.info)
             }
             watch(()=>props.isClear,()=>{
                 if(props.isClear){
@@ -32,7 +29,7 @@
             },{deep:true})
             // 监听输入框值的变化
             watch(()=>dataInfo.info,()=>{
-                debounce()
+                debounce(500,passInfo)
             },{deep:true})
             return{
                 ...toRefs(dataInfo),

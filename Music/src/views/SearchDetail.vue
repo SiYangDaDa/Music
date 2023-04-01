@@ -65,7 +65,6 @@
             }
             // 将搜索的歌曲列表传递给songs
             const getSongs=(id,index)=>{
-                console.log(dataInfo.songsList)
                 // 将单曲信息传递给vuex
                 passSongsList(dataInfo.songsList,"search")
                 // 将歌曲列表传递给vuex                

@@ -55,7 +55,6 @@
             // 监听路由数据的变化
             watch(route,()=>{
                 if(route.query.id&&route.fullPath!=dataInfo.fullPath){
-                    console.log(route.query)
                     dataInfo.songsList=[]
                     dataInfo.singerInfo=[]
                     dataInfo.musicSize=null
@@ -81,12 +80,10 @@
             // 获取歌手简介及50首热门歌曲
             const getSingerInfoAndHotSongs=async()=>{
                 const res=await PerInfoAndHotSongsApi({id:route.query.id})
-                console.log(res.data)
                 dataInfo.singerInfo=res.data.artist.briefDesc
                 dataInfo.musicSize=res.data.artist.musicSize
                 dataInfo.albumSize=res.data.artist.albumSize
                 dataInfo.songsList=res.data.hotSongs.filter(item=>item.fee==0||item.fee==8)
-                console.log(dataInfo.songsList)
                 passSongsList()
             }
             // 选择导航分类并获取相应的数据

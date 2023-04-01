@@ -60,7 +60,6 @@
             const getHotSongsList=async()=>{
                 const res=await HotSongsListApi()
                 dataInfo.hotSongList = res.data.playlists
-                console.log('data',res.data)
             }
             // 跳转到歌单详情页
             const router=useRouter()

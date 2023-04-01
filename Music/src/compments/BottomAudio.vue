@@ -289,7 +289,7 @@
             align-items: center;
             flex-direction: column;
             .post-title{
-                // margin: auto;
+                text-align: center;
             }
             #postImg{
                 margin-top: 15vw;
